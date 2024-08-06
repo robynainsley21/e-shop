@@ -13,9 +13,11 @@ let connection = createPool({
     connectionLimit: 30
 })
 
-/**in case the connection fails */
-connection.on('connection', (err) => {
-    if(err)throw new Error('Could not connect to database')
+/**in case the connection fails 
+ * pool returns an array
+*/
+connection.on('connection', (pool) => {
+    if(!pool)throw new Error('Could not connect to database')
 })
 /**making the variable available */
 export {
