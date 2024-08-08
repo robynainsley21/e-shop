@@ -77,6 +77,11 @@ router.get("/users/:id", (req, res) => {
   }
 });
 
+/**
+ * This functions as a catch-all for any routes that havent been explicitly defined
+ * if the user goes to a route that does not exist, this will be called
+ * useful for debugging
+ */
 router.get('*', (req, res) => {
     res.json({
         status: 404,
