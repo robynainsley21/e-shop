@@ -26,8 +26,11 @@ app.use(
 );
 /**
  * specifying body parser in order to retrieve the request data
+ * -in order for the server to read the data from the frontend, we need to specify the below line 
+ * to be applied on all the routes (then we do not have to specify it in every route) so that the 
+ * data can be converted to json
  */
-router.use(bodyParser.json());
+router.use(bodyParser.json()); 
 
 /**Endpoint
  * (where the user is headed)
@@ -40,7 +43,7 @@ router.get("^/$|/eShop", (req, res) => {
 router.get("/users", (req, res) => {
   try {
     const strQry = `
-        SELECT firstName, lastName, age, emailAdd, pwd
+        SELECT firstName, lastName, age, emailAdd, userRole, profileURL
         FROM Users;
         `;
     db.query(strQry, (err, results) => {
@@ -67,7 +70,7 @@ router.get("/users", (req, res) => {
 router.get("/user/:id", (req, res) => {
   try {
     const strQry = `
-        SELECT firstName, lastName, age, emailAdd, userID
+        SELECT firstName, lastName, age, emailAdd, userID, userRole, profileURL
         FROM Users
         WHERE userID = ${req.params.id};
         `;
@@ -185,7 +188,7 @@ router.post("/login", (req, res) => {
   try {
     const { emailAdd, pwd } = req.body;
     const strQry = `
-      SELECT userID, firstName, lastName, age, emailAdd, pwd
+      SELECT userID, firstName, lastName, age, emailAdd, pwd, userRole, profileURL
       FROM Users
       WHERE emailAdd = '${emailAdd}'
       ;
