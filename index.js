@@ -11,10 +11,12 @@ const router = express.Router();
 /**Middleware
  * the sequence in this process is important, it has to be written in this order
  */
+app.use('/user', userRouter)
+app.use('/product', productRouter)
 app.use(
   router,
-  '/user', userRouter,
-  '/product', productRouter,
+  // ('/user', userRouter),
+  // ('/product', productRouter),
   express.static("./static"),
   /**the request data is being returned as json data */
   express.json(),
@@ -23,6 +25,7 @@ app.use(
    */
   express.urlencoded({ extended: true })
 );
+
 
 /**Endpoint
  * (where the user is headed)
