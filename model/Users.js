@@ -47,12 +47,17 @@ class Users {
   }
   async registerUser(req, res) {
     try {
-
+      let data = req.body;
+      data.pwd = await hash(data.pwd, 12);
+      let user = {
+        emailAdd: data.emailAdd,
+        pwd: data.pwd,
+      };
       let strQry = `
                 INSERT INTO Users
                 SET ?;
               `;
-      db.query(strQry, [req.body], (err) => {
+      db.query(strQry, [data], (err) => {
         if (err) {
           res.json({
             status: res.statusCode,
