@@ -1,32 +1,39 @@
 import express from "express";
 import bodyParser from "body-parser";
-import { Products } from "../model/index.js";
+import { products } from '../model/index.js'
+import { verifyAToken } from "../middleware/AuthenticateUser.js";
 
-const userRouter = express.Router();
+const productRouter = express.Router();
 
-userRouter.use(bodyParser.json())
+productRouter.use(bodyParser.json())
 
-userRouter.get('/', (req, res) => {
-    Products.fetchProducts(req, res)
+/**allows us to retrieve all the products
+ * verifyAToken = middleware
+ */
+productRouter.get('/', verifyAToken, (req, res) => {
+    products.fetchProducts(req, res)
 })
 
-userRouter.get('/:id', (req, res) => {
-    Products.fetchProduct(req, res)
+productRouter.get('/recent', (req, res) => {
+    products.recentProducts(req, res)
 })
 
-userRouter.post('/add', (req, res) => {
-    Products.addProduct(req, res)
+productRouter.get('/:id', verifyAToken, (req, res) => {
+    products.fetchProduct(req, res)
 })
 
-userRouter.patch('/product/:id', (req, res) => {
-    Products.updateProduct(req, res)
+productRouter.post('/add', verifyAToken, (req, res) => {
+    products.addProduct(req, res)
 })
 
-userRouter.delete('/product/:id', (req, res) => {
-    Products.deleteProduct(req, res)
+productRouter.patch('/:id', verifyAToken, (req, res) => {
+    products.updateProduct(req, res)
+})
+
+productRouter.delete('/:id', verifyAToken, (req, res) => {
+    products.deleteProduct(req, res)
 })
 
 export {
-    express,
-    userRouter
+    productRouter
 }
