@@ -7,7 +7,7 @@ const createToken = (user) => {
   return sign(
     {
       emailAdd: user.emailAdd,
-      pwd: user.pw,
+      pwd: user.pwd,
     },
     process.env.SECRET_KEY,
     { expiresIn: "1h" } 
