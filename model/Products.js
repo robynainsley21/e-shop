@@ -81,7 +81,7 @@ class Products {
         });
       });
     } catch (error) {
-      res.json({ status: 404, message: error.message });
+      res.json({ status: 404, err: error.message });
     }
   }
   updateProduct(req, res) {
@@ -100,7 +100,7 @@ class Products {
         });
       });
     } catch (error) {
-      res.json({ status: 404, message: error.message });
+      res.json({ status: 404, err: error.message });
     }
   }
   deleteProduct(req, res) {
@@ -118,7 +118,7 @@ class Products {
         });
       });
     } catch (error) {
-      res.json({ status: 404, message: error.message });
+      res.json({ status: 404, err: error.message });
     }
   }
 }
