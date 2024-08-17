@@ -11,12 +11,15 @@ const router = express.Router();
 /**Middleware
  * the sequence in this process is important, it has to be written in this order
  */
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  /**without 'next', the lines following will not run */
+  next()
+})
 app.use('/user', userRouter)
 app.use('/product', productRouter)
 app.use(
   router,
-  // ('/user', userRouter),
-  // ('/product', productRouter),
   express.static("./static"),
   /**the request data is being returned as json data */
   express.json(),
