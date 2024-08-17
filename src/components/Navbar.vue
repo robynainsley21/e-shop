@@ -70,5 +70,5 @@ export default {
 <style scoped>
 img[alt="logo"] {
   width: 5rem;
-}git 
+}
 </style>
