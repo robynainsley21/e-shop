@@ -26,14 +26,13 @@ class Products {
     try {
       const strQry = `
         SELECT productID, prodName, category, prodDescription, prodURL, amount
-        FROM Products;
+        FROM Products
         ORDER BY productID DESC
         LIMIT 5;
         `;
 
       db.query(strQry, (err, results) => {
-        //`Unable to retrieve recent products`
-        if (err) throw new Error(err.message);
+        if (err) throw new Error(`Unable to retrieve recent products`);
         res.json({
           status: res.statusCode,
           results,
@@ -51,7 +50,7 @@ class Products {
       const strQry = `
                 SELECT productID, prodName, category, prodDescription, prodURL, amount
                 FROM Products
-                WHERE productID = ${req.params.id}
+                WHERE productID = ${req.params.id};
             `;
       db.query(strQry, (err, result) => {
         if (err) throw new Error(`Specified product was not found`);
