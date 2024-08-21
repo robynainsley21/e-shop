@@ -10,7 +10,7 @@ class Users {
                 FROM Users;
                 `;
       db.query(strQry, (err, results) => {
-        if (err) throw new Error(`Unable to fetch all users`);
+        if (err) throw new Error(err.message);
         /**what is being sent to the client
          * data is stored in "results"
          */
